@@ -6,9 +6,8 @@ app.use(express.json());
 
 const TOKEN = process.env.BOT_TOKEN;
 
-// 🔥 health check route (IMPORTANT)
 app.get("/", (req, res) => {
-    res.send("Bot is running");
+    res.send("Bot running");
 });
 
 app.post("/webhook", async (req, res) => {
@@ -16,7 +15,7 @@ app.post("/webhook", async (req, res) => {
         const update = req.body;
 
         if (!TOKEN) {
-            console.log("BOT_TOKEN is missing!");
+            console.log("TOKEN missing");
             return res.send("no token");
         }
 
@@ -26,11 +25,9 @@ app.post("/webhook", async (req, res) => {
             const name = update.message.from.first_name;
 
             if (text === "/start") {
-                const message = `👋 Welcome ${name}!\n🐹 Hamster Empire Game`;
-
                 await axios.post(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
                     chat_id,
-                    text: message,
+                    text: `👋 Welcome ${name}!`,
                     reply_markup: {
                         inline_keyboard: [[
                             {
@@ -55,5 +52,5 @@ app.post("/webhook", async (req, res) => {
 
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => {
-    console.log("Bot running on port", PORT);
+    console.log("Bot running on", PORT);
 });
