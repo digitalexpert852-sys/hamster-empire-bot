@@ -6,7 +6,6 @@ app.use(express.json());
 
 const TOKEN = process.env.BOT_TOKEN;
 
-// health check
 app.get("/", (req, res) => {
     res.send("Bot running");
 });
@@ -26,19 +25,9 @@ app.post("/webhook", async (req, res) => {
             const name = update.message.from.first_name;
 
             if (text === "/start") {
-
-                await axios.post(`https://api.telegram.org/bot${TOKEN}/sendPhoto`, {
-                    chat_id: chat_id,
-                    photo: "https://imgur.com/a/ycKC0cW",
-                    caption: `🐹 HEY CHAMP!
-
-💥 You just joined HAMSTER EMPIRE
-
-💰 Coins are waiting for you
-🔥 Daily bonuses available
-🎮 Play, Earn, Upgrade
-
-👋 Welcome ${name}!`,
+                await axios.post(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
+                    chat_id,
+                    text: `👋 Welcome ${name}!`,
                     reply_markup: {
                         inline_keyboard: [[
                             {
