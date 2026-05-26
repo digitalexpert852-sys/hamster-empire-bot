@@ -4,7 +4,7 @@ const axios = require("axios");
 const app = express();
 app.use(express.json());
 
-const TOKEN = process.env.8688084678:AAHb9YZ848_vYOp2St4bdIzcyo8KDBsotcA;
+const TOKEN = process.env.BOT_TOKEN;
 
 app.post("/webhook", async (req, res) => {
     const update = req.body;
